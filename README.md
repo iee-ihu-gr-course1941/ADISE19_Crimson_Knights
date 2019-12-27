@@ -1,25 +1,6 @@
 # ADISE19_Crimson_Knights
 # Εγκατάσταση
-Απαιτήσεις
-    - Apache2
-    - Mysql Server
-    - php
-
-# Οδηγίες Εγκατάστασης
-
-- Κάντε clone το project σε κάποιον φάκελο
-  $ git clone https://github.com/iee-ihu-gr-course1941/Lectures-Chess4.git
-  
-- Βεβαιωθείτε ότι ο φάκελος είναι προσβάσιμος από τον Apache Server. πιθανόν να χρειαστεί να καθορίσετε τις παρακάτω ρυθμίσεις.
-
-- Θα πρέπει να δημιουργήσετε στην Mysql την βάση με όνομα 'adise19_chess5' και να φορτώσετε σε αυτήν την βάση τα δεδομένα από το αρχείο    
-  DB/schema5.sql
-
-- Θα πρέπει να φτιάξετε το αρχείο lib/config_local.php το οποίο να περιέχει:
-    <?php
-	$DB_PASS = 'κωδικός';
-	$DB_USER = 'όνομα χρήστη';
-    ?>
+Απαιτήσεις: Apache2 - MySQL Server - PHP
 
 # Περιγραφή Παιχνιδιού
  
