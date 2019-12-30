@@ -17,11 +17,32 @@
 
 
 <body>
-    <div id="board" onclick="ajax_request('uno.php/hand/NA','get','draw_hand')">
-
+    <div id="board">
+        <div id="draw_pile">
+            <img src="images/K.png" alt="draw_pile" onclick="get_card()">
+        </div>
+        <div id="top_card">
+            <img src="images/E.png" alt="top_card">
+        </div>
+        <div class="player_box top">
+            <p class="name">Player 1</p>
+            <p class="number_of_cards">0</p>
+        </div>
+        <div class="player_box left">
+            <p class="name">Player 2</p>
+            <p class="number_of_cards">0</p>
+        </div>
+        <div class="player_box right">
+            <p class="name">Player 3</p>
+            <p class="number_of_cards">0</p>
+        </div>
+        <div class="player_box bottom">
+            <p class="name">Player 4</p>
+            <p class="number_of_cards">0</p>
+        </div>
     </div>
-    <div id="hand" onclick="draw_card('K','1','body')">
-        
+    <div id="hand">
+
     </div>
     <script>
         
