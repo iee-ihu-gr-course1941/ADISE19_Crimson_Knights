@@ -11,15 +11,10 @@
 	$input['token']=$_SERVER['HTTP_X_TOKEN'];
     }
 
-    $test = "test";
-
-
-
-
 
     switch($r=array_shift($request)){
         case 'users' :
-            query_db_no_param('SELECT * FROM USERSt');
+            query_db_no_param('SELECT * FROM USERS');
             break;
         case 'deck' :
             query_db_no_param('SELECT * FROM DECK');
@@ -35,12 +30,9 @@
                        
             }
             break;
-        default : 
-            header("X-Lick: lick it");
+        default :
             header("Location: http://localhost/Not_found.html");
     }
-    //mysqliquery('CALL ADD_USER(?);',$_POST['userName']);
-    //query_db('SELECT * FROM USERS WHERE USER_NAME = ?',$_POST['userName']);
-    //query_db('SELECT * FROM MASTER_DECK WHERE COLOR = ?',$_POST['userName']);
+    
     exit;
 ?>
