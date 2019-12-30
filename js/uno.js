@@ -79,3 +79,30 @@ function draw_hand(data, element) {
         draw_card(data[i].COLOR, data[i].NUMBER, data[i].DECK_NUM, element);
     }
 }
+
+function reset_board() {
+    $('#hand').empty();
+    $('#top_card').empty();
+    $('.player_box .name').each(function () {
+        $(this).empty();
+    });
+    $('.player_box .number_of_cards').each(function () {
+        $(this).empty();
+    });
+}
+
+function update_players(data){
+    $('.player_box .name').each(function (index) {
+        $(this).html(data[index].USER_NAME)
+    });
+    $('.player_box .number_of_cards').each(function (index) {
+        $(this).html(data[index].TURN_NUMBER);
+    });
+}
+
+function update_board() {
+    reset_board();
+    ajax_request('/uno.php/hand', 'GET', 'draw_hand');
+    ajax_request('/uno.php/top_card', 'GET', 'draw_top_card');
+    ajax_request('/uno.php/get_players', 'GET','update_players');
+}
