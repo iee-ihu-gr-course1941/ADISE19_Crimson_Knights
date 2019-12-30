@@ -1,0 +1,49 @@
+
+* {
+  box-sizing: border-box;
+} 
+.red {}
+
+.special {}
+
+.green {
+    filter: hue-rotate(100deg);
+}
+
+.blue {
+    filter: hue-rotate(200deg);
+}
+
+.purple {
+    filter: hue-rotate(300deg);
+}
+
+body {
+    background-color: #170A52;
+}
+
+img {
+    width: 10%;
+    height: 10%;
+}
+
+#board {
+    border-radius: 15px;
+    border: 10px solid #34ebe8;
+    margin: auto;
+    margin-top: 2%;
+    background-color: #06001F;
+    width: 90%;
+    height: 600px;
+}
+
+#hand {
+    box-sizing: inherit;
+    border-radius: 15px;
+    border: 10px solid #34ebe8;
+    margin: auto;
+    margin-top: -10%;
+    background-color: #06001F;
+    width: 50%;
+    height: auto;
+}
