@@ -1,7 +1,7 @@
-
 * {
-  box-sizing: border-box;
-} 
+    box-sizing: border-box;
+}
+
 .red {}
 
 .special {}
@@ -22,28 +22,39 @@ body {
     background-color: #170A52;
 }
 
-img {
+#hand > img {
+
     width: 10%;
     height: 10%;
 }
 
+#draw_pile > img {
+    width: 30%;
+}
+
+#top_card > img {
+    width: 30%;
+}
+
 #board {
+    position: relative;
     border-radius: 15px;
     border: 10px solid #34ebe8;
     margin: auto;
     margin-top: 2%;
     background-color: #06001F;
     width: 90%;
-    height: 600px;
+    height: 650px;
 }
 
 #hand {
-    box-sizing: inherit;
+    position: relative;
     border-radius: 15px;
     border: 10px solid #34ebe8;
     margin: auto;
-    margin-top: -10%;
+    margin-top: -8%;
     background-color: #06001F;
     width: 50%;
     height: auto;
+    z-index: 1;
 }
