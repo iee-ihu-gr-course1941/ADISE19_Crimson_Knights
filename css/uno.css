@@ -58,3 +58,55 @@ body {
     height: auto;
     z-index: 1;
 }
+
+#draw_pile {
+    position: absolute;
+    margin-top: 15%;
+    margin-left: 35%;
+}
+
+#top_card {
+    position: absolute;
+    margin-top: 15%;
+    margin-left: 55%;
+}
+
+.player_box {
+    position: relative;
+    border-radius: 15px;
+    border: 5px solid #34ebe8;
+    background-color: #06001F;
+    width: 20%;
+}
+
+p {
+    font-size: 15px;
+    font-family: arial;
+    font-weight: bold;
+    text-align: center;
+    color: #ffffff;
+}
+
+.top {
+    margin: auto;
+    margin-top: 1%;
+}
+
+.left {
+    margin-top: 15%;
+    margin-left: 1%;
+}
+
+.right {
+    margin-top: -6%;
+    margin-left: 79%;
+}
+
+.bottom {
+    margin: auto;
+    margin-top: -1%;
+}
+
+.enabled {
+    border: 10px solid #00ff00;
+}
