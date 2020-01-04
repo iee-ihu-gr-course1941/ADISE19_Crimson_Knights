@@ -6,7 +6,8 @@ Table of Contents
       * [Οδηγίες Εγκατάστασης](#οδηγίες-εγκατάστασης)
    * [Περιγραφή παιχνιδιού](#περιγραφή-παιχνιδιού)
       * [Συντελεστές](#συντελεστές)
-      
+   * [Περιγραφή API](#περιγραφή-api)
+      * [Methods](#methods)
       
 # Game Page
 
@@ -68,8 +69,11 @@ Table of Contents
 
 Η βάση μας κρατάει τους εξής πίνακες και στοιχεία:
 
-* MASTER_DECK (COLOR, NUMBER, DECK_NUM)
-* USERS (USER_TOKEN, USER_NAME)
+* BOARDS (BOARD_ID, LAST_CHANGE, ACTIVE_COLOR, MAX_PLAYERS, ACTIVE_PLAYER_TOKEN, BOARD_STATE)
+* DECK (COLOR, NUMBER, DECK_NUM)
+* HANDS (BOARD_ID, USER_TOKEN, COLOR, NUMBER, DECK_NUM, VALID)
+* TURNS (BOARD_ID, USER_TOKEN, TURN_NUMBER, ALLOWED)
+* USERS (USER_TOKEN, USER_NAME, USER_TIME_STAMP)
 
 Η εφαρμογή απαπτύχθηκε μέχρι ...
 
@@ -79,3 +83,8 @@ Table of Contents
 - Προγραμματιστής 1: ...
 - Προγραμματιστής 2: ...
 - Προγραμματιστής 3: ...
+
+# Περιγραφή API
+
+## Methods
+
