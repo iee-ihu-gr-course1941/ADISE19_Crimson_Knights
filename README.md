@@ -8,6 +8,21 @@ Table of Contents
       * [Συντελεστές](#συντελεστές)
    * [Περιγραφή API](#περιγραφή-api)
       * [Methods](#methods)
+         * [Βoard](#board)
+            * [Αρχικοποίηση Board](#αρχικοποίηση-board) set_board
+         * [Card](#card)
+            * [Ανάγνωση πάνω κάρτας](#ανάγνωση-πάνω-κάρτας) top_card
+            * [Παίξιμο κάρτας](#παίξιμο-κάρτας) play_card
+            * [Τράβηγμα κάρτας](#τράβηγμα-κάρτας) get_card 
+         * [Hand](#hand)
+            * [Ανάγνωση του παίκτη που παίζει](#ανάγνωση-τουπαίκτη-πουπαίζει) hand
+         * [Players](#players)
+            * [Ανάγνωση ενεργών παικτών](#ανάγνωση-ενεργών-παικτών) get_players 
+         * [Users](#Users)
+            * [Ανάγνωση ενός χρήστη](#ανάγνωση-ενός-χρήστη) sign_in
+            * [Εισαγωγή χρήστη στο παιχνίδι](#εισαγωγή-χρήστη-στοπαιχνίδι) add_user
+      * [Entities](#entities)
+      
       
 # Game Page
 
@@ -69,11 +84,11 @@ Table of Contents
 
 Η βάση μας κρατάει τους εξής πίνακες και στοιχεία:
 
-* BOARDS (BOARD_ID, LAST_CHANGE, ACTIVE_COLOR, MAX_PLAYERS, ACTIVE_PLAYER_TOKEN, BOARD_STATE)
-* DECK (COLOR, NUMBER, DECK_NUM)
-* HANDS (BOARD_ID, USER_TOKEN, COLOR, NUMBER, DECK_NUM, VALID)
-* TURNS (BOARD_ID, USER_TOKEN, TURN_NUMBER, ALLOWED)
-* USERS (USER_TOKEN, USER_NAME, USER_TIME_STAMP)
+* BOARDS (`BOARD_ID`, `LAST_CHANGE`, `ACTIVE_COLOR`, `MAX_PLAYERS`, `ACTIVE_PLAYER_TOKEN`, `BOARD_STATE`)
+* DECK (`COLOR`, `NUMBER`, `DECK_NUM`)
+* HANDS (`BOARD_ID`, `USER_TOKEN`, `COLOR`, `NUMBER`, `DECK_NUM`, `VALID`)
+* TURNS (`BOARD_ID`, `USER_TOKEN`, `TURN_NUMBER`, `ALLOWED`)
+* USERS (`USER_TOKEN`, `USER_NAME`, `USER_TIME_STAMP`)
 
 Η εφαρμογή απαπτύχθηκε μέχρι ...
 
@@ -87,4 +102,82 @@ Table of Contents
 # Περιγραφή API
 
 ## Methods
+
+### Board
+#### Αρχικοποίηση Board
+
+```
+GET /set_board/
+```
+
+Αρχικοποιεί το Board, δηλαδή το παιχνίδι. Γίνονται update όλες οι κάρτες των παικτών καθώς και
+η πρώτη εμφανίσιμη κάρτα του παιχνιδιού.
+
+### Card
+#### Ανάγνωση πάνω κάρτας
+
+```
+GET /set_board/top_card/
+```
+
+Αρχικά, διαβάζει την εμφανίσιμη κάρτα που τοποθετείται στο ταμπλό, ώστε να μπορεί να γίνεται εκκίνηση του παιχνιδιού.
+Από 'κει και ύστερα, διαβάζει την πάνω κάρτα της στοίβας των "άχρηστων" καρτών.  
+
+#### Παίξιμο κάρτας
+
+```
+POST /set_board/top_card/play_card/
+```
+
+Ρίχνει την κάρτα του παίκτη που είναι η σειρά να παίξει με βάση το token, πάνω στη στοίβα των "άχρηστων" καρτών.
+
+#### Τράβηγμα κάρτας
+
+```
+GET /set_board/get_card/
+```
+
+Ο χρήστης που παίζει τραβάει μια κάρτα από τη στοίβα του "πάσο".
+
+### Hand
+
+#### Ανάγνωση του παίκτη που παίζει
+
+```
+GET /hand/
+```
+
+Διαβάζει τα στοιχεία του παίκτη που είναι να παίξει.
+
+### Players
+
+#### Ανάγνωση ενεργών παικτών
+
+```
+GET /get_players/:p
+```
+
+Επιστρέφει τα στοιχεία των ενεργών παικτών του παιχνιδιού. 
+Το p μπορεί να είναι 'Player 1', 'Player 2', 'Player 3' ή 'Player 4'.
+
+### Users
+
+#### Ανάγνωση ενός χρήστη
+
+```
+POST /sign_in/
+```
+
+Διαβάζει τα στοιχεία ενός παίκτη, ο οποίος κάνει sign in στο παιχνίδι.
+
+#### Εισαγωγή χρήστη στο παιχνίδι
+```
+POST /add_user/
+```
+
+Εισάγει έναν παίκτη μέσα στο παιχνίδι.
+
+
+
+
 
