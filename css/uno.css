@@ -2,6 +2,10 @@
     box-sizing: border-box;
 }
 
+.disabled {
+    opacity: 0.5;
+}
+
 .red {}
 
 .special {}
@@ -83,7 +87,6 @@ p {
     font-size: 15px;
     font-family: arial;
     font-weight: bold;
-    text-align: center;
     color: #ffffff;
 }
 
@@ -93,18 +96,18 @@ p {
 }
 
 .left {
-    margin-top: 15%;
+    margin-top: 10%;
     margin-left: 1%;
 }
 
 .right {
-    margin-top: -6%;
+    margin-top: -8%;
     margin-left: 79%;
 }
 
 .bottom {
     margin: auto;
-    margin-top: -1%;
+    margin-top: 9%;
 }
 
 .enabled {
