@@ -8,18 +8,14 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="js/uno.js"></script>
     <link rel="stylesheet" type="text/css" href="css/uno.css">
-
-    <script>
-        
-    </script>
-
 </head>
 
-
 <body>
+    <input id="sign_in" type="text" name="userName" value="">
+    <button onclick="sign_in()">Submit</button>
     <div id="board">
         <div id="draw_pile">
-            <img src="images/K.png" alt="draw_pile" onclick="get_card()">
+            <img src="images/K.png" alt="draw_pile">
         </div>
         <div id="top_card">
             <img src="images/E.png" alt="top_card">
@@ -40,15 +36,12 @@
             <p class="name">Player 4</p>
             <p class="number_of_cards">0</p>
         </div>
+        <button onclick="reset_board()">reset</button>
+        <button onclick="update_board()">update</button>
+        <button onclick="play_card()">add</button>
     </div>
     <div id="hand">
-
     </div>
-    <script>
-        
-        
-    </script>
-
 </body>
 
 
