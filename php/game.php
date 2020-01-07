@@ -46,8 +46,8 @@ function validate_hand($token)
         {
             $valid = 'NO';
         }
-        query('CALL SET_CARD_VALID(?,?,?,?,?)', 'ssiis', array($token, $card[0]['COLOR'],
-        $card[0]['NUMBER'],$card[0]['DECK_NUM'],$valid), 'php');
+        query('CALL SET_CARD_VALID(?,?,?,?,?)', 'ssiis', array($token, $player_hand[$i]['COLOR'],
+        $player_hand[$i]['NUMBER'], $player_hand[$i]['DECK_NUM'], $valid), 'php');
     }
 }
 ?>
