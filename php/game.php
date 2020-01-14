@@ -1,4 +1,12 @@
 <?php     
+function pass()
+{
+    query('CALL INVALIDATE_ALL_HANDS()','',array(),'');
+    $next_player = next_player(null);
+    query('CALL SET_PLAYER_ALLOWED(?,?)','ss',array($next_player['USER_TOKEN'],'YES'),'');
+    validate_hand($next_player['USER_TOKEN']);  
+}
+
 function get_card($token) {
 	$card = query('CALL GET_RANDOM_CARD()', '', array() , 'php');
 	query('CALL SET_CARD(?,?,?,?)', 'ssii', array($token,$card[0]['COLOR'],$card[0]['NUMBER'],
@@ -119,27 +127,42 @@ function validate_hand($token)
     $valid = 'NO';
     $top_card = query('CALL GET_HAND(?)', 's', array('TOP_CARD'), 'php');
     $player_hand = query('CALL GET_HAND(?)', 's', array($token), 'php');
+    $active_color = query('CALL GET_ACTIVE_COLOR()','',array(),'');
     $num_of_cards = count($player_hand);
+    
     for ($i = 0;$i < $num_of_cards;$i++)
     {
-        if ($top_card[0]['COLOR'] == $player_hand[$i]['COLOR'])
+        if($top_card[0]['COLOR'] != '+' and $top_card[0]['COLOR'] != 'C')
         {
-            if ($player_hand[$i]['COLOR'] == '+' or $player_hand[$i]['COLOR'] == 'C')
+            if($top_card[0]['COLOR'] == $player_hand[$i]['COLOR'])
             {
-                $valid = 'NO';  
-            } 
-            $valid = 'YES';
-        }
-        else if ($top_card[0]['NUMBER'] == $player_hand[$i]['NUMBER'])
-        {
-            $valid = 'YES';  
+                $valid = 'YES';
+            }
+            else if($top_card[0]['NUMBER'] == $player_hand[$i]['NUMBER'])
+            {
+                $valid = 'YES';
+            }
+            else if($player_hand[$i]['COLOR'] == '+' or $player_hand[$i]['COLOR'] == 'C')
+            {
+                $valid = 'YES';
+            }
+            else $valid = 'NO';
         }
         else
         {
-            $valid = 'NO';
+            if($active_color[0]['ACTIVE_COLOR'] == $player_hand[$i]['COLOR'])
+            {
+                $valid = 'YES';
+            }
+            else if($player_hand[$i]['COLOR'] == '+' or $player_hand[$i]['COLOR'] == 'C')
+            {
+                $valid = 'NO';
+            }
+            else $valid = 'NO';
         }
+           
         query('CALL SET_CARD_VALID(?,?,?,?,?)', 'ssiis', array($token, $player_hand[$i]['COLOR'],
-        $player_hand[$i]['NUMBER'], $player_hand[$i]['DECK_NUM'], $valid), 'php');
+        $player_hand[$i]['NUMBER'],$player_hand[$i]['DECK_NUM'],$valid), '');
     }
 }
 ?>
