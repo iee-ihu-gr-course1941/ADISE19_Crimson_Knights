@@ -22,6 +22,98 @@ function play_card($token,$card){
     print json_encode([$card['COLOR'],$token], JSON_PRETTY_PRINT);
 }
 
+function next_player($card){
+    $rotation = query('CALL GET_ROTATION()', '', array(), 'php');
+    $players = query('CALL GET_PLAYERS(?)','s',array($rotation[0]['ROTATION']),'php');
+    $last_player = end($players);
+    $flag_second_to_last = false;
+    $flag_last = false;
+    reset($players);
+    
+    if(count($players) == 2){
+        $flag_second_to_last = true;
+    }
+    for($i =0;$i < 10;$i++){
+        if(current($players)['ALLOWED'] == 'YES'){
+            if(current($players) == $last_player){
+                $flag_last = true;
+                break;
+            }
+            if(next($players) == $last_player){
+                $flag_second_to_last = true;
+                prev($players);    
+                break;   
+            }
+            prev($players);
+            break;
+        }else {
+            next($players);
+        }
+    }
+
+    query('CALL SET_PLAYER_ALLOWED(?,?)','ss',array(current($players)['USER_TOKEN'],'NO'),'');
+    
+    if($card['NUMBER'] == 12){
+       if($flag_last){
+        reset($players);
+        return next($players);
+        }else if($flag_second_to_last){
+           reset($players);
+           return current($players);
+       }else{
+           next($players);
+           return next($players);
+       }
+    }else if($card['NUMBER'] == 10){
+       if($flag_last){
+            reset($players);
+            get_card(current($players)['USER_TOKEN']);
+            get_card(current($players)['USER_TOKEN']);
+            return next($players);
+        }else if($flag_second_to_last){
+           $next_player = next($players);
+           get_card($next_player['USER_TOKEN']);
+           get_card($next_player['USER_TOKEN']);
+           reset($players);
+           return current($players);
+       }else{
+           $next_player = next($players);
+           get_card($next_player['USER_TOKEN']);
+           get_card($next_player['USER_TOKEN']);
+           return next($players);
+       } 
+    }else if($card['COLOR'] == '+'){
+        if($flag_last){
+            reset($players);
+            get_card(current($players)['USER_TOKEN']);
+            get_card(current($players)['USER_TOKEN']);
+            get_card(current($players)['USER_TOKEN']);
+            get_card(current($players)['USER_TOKEN']);
+            return next($players);
+        }else if($flag_second_to_last){
+           $next_player = next($players);
+           get_card($next_player['USER_TOKEN']);
+           get_card($next_player['USER_TOKEN']);
+           get_card($next_player['USER_TOKEN']);
+           get_card($next_player['USER_TOKEN']);
+           reset($players);
+           return current($players);
+       }else{
+           $next_player = next($players);
+           get_card($next_player['USER_TOKEN']);
+           get_card($next_player['USER_TOKEN']);
+           get_card($next_player['USER_TOKEN']);
+           get_card($next_player['USER_TOKEN']);
+           return next($players);
+       } 
+    }else{
+        if($flag_last){
+            reset($players);
+            return current($players);
+        }else return next($players);
+    }
+}
+
 function validate_hand($token)
 {
     $valid = 'NO';
