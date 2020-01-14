@@ -10,7 +10,8 @@ function pass()
 function get_card($token) {
 	$card = query('CALL GET_RANDOM_CARD()', '', array() , 'php');
 	query('CALL SET_CARD(?,?,?,?)', 'ssii', array($token,$card[0]['COLOR'],$card[0]['NUMBER'],
-                                                  $card[0]['DECK_NUM']), 'php');
+                                                  $card[0]['DECK_NUM']), '');
+	validate_hand($token);
 }
 
 function set_board(){
@@ -23,6 +24,8 @@ function set_board(){
 			get_card($players[$i]['USER_TOKEN']);
 		}
 	}
+	 query('CALL SET_PLAYER_ALLOWED(?,?)','ss',array($players[0]['USER_TOKEN'],'YES'),'');
+    validate_hand($players[0]['USER_TOKEN']);
 }
 
 function play_card($token,$card)
