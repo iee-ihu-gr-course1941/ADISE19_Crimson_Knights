@@ -25,7 +25,7 @@ Table of Contents
             * [Πάσο ενός παίκτη](#πάσο-ενός-παίκτη)
       * [Entities](#entities)
          * [Deck](#deck)
-         * [Players](#players1)
+         * [Players](#players-1)
          * [Hands](#Hands)
          
   
