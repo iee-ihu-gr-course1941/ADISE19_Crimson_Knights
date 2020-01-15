@@ -20,43 +20,70 @@ function give_cards($num_of_cards,$token) {
 	   query('CALL SET_CARD(?,?,?,?)', 'ssii', array($token,$card[0]['COLOR'],$card[0]['NUMBER'],$card[0]['DECK_NUM']) , '');
     }
 }
-function set_board(){
-    query('CALL RESET_HANDS()','',array(),'php');
-	get_card('TOP_CARD');
-    $players = query('CALL GET_PLAYERS()', '', array() , 'php');
+function setup_board() {
+    query('CALL RESET_HANDS()','',array(),'');
+	give_cards(1,'TOP_CARD');
+    $players = query('CALL GET_PLAYERS(?)', 's', array('C') , 'php');
 	$num_of_players = count($players);
-	for ($i = 0;$i < $num_of_players;$i++){
-		for ($j = 0;$j < 7;$j++) {
-			get_card($players[$i]['USER_TOKEN']);
-		}
+    $colors = array('R','G','B','P');
+    $random_key = array_rand($colors,2);
+    $skip = false;
+	for ($i = 0;$i < $num_of_players;$i++) {
+		give_cards(7,$players[$i]['USER_TOKEN']);
 	}
-	 query('CALL SET_PLAYER_ALLOWED(?,?)','ss',array($players[0]['USER_TOKEN'],'YES'),'');
-    validate_hand($players[0]['USER_TOKEN']);
+    query('CALL SET_BOARD(?,?)','ss',array('ROTATION','C'),'');
+    query('CALL INVALIDATE_ALL(?)','s',array('TURNS'),'');
+    $top_card = query('CALL GET_HAND(?)', 's', array('TOP_CARD'), 'php');
+    if($top_card[0]['COLOR'] == 'C'){
+        query('CALL SET_BOARD(?,?)','ss',array('ACTIVE_COLOR',$colors[$random_key[0]]),'');  
+    }else if($top_card[0]['COLOR'] == '+'){
+        query('CALL SET_BOARD(?,?)','ss',array('ACTIVE_COLOR',$colors[$random_key[0]]),'');
+        give_cards(4,$players[0]['USER_TOKEN']);
+        $skip = true;
+    }else if($top_card[0]['NUMBER'] == 10){
+        give_cards(2,$players[0]['USER_TOKEN']);
+        $skip = true;
+    }else if($top_card[0]['NUMBER'] == 11){
+        query('CALL SET_BOARD(?,?)','ss',array('ROTATION',''),'');
+    }else if($top_card[0]['NUMBER'] == 12){
+        $skip = true;
+    }
+    
+    if($skip){
+        query('CALL SET_PLAYER_ALLOWED(?,?)','ss',array($players[1]['USER_TOKEN'],'YES'),'');
+        validate_hand($players[1]['USER_TOKEN']); 
+    }else{
+       query('CALL SET_PLAYER_ALLOWED(?,?)','ss',array($players[0]['USER_TOKEN'],'YES'),'');
+        validate_hand($players[0]['USER_TOKEN']); 
+    }
+    query('CALL SET_BOARD(?,?)','ss',array('BOARD_STATE','STARTED'),'');
 }
 
-function play_card($token,$card)
-{
-    if($card['COLOR'] == '+' or $card['COLOR'] == 'C')
-    {
-        query('CALL SET_ACTIVE_COLOR(?)','s',array($card['ACTIVE_COLOR']),'');
+function play_card($token,$card){
+    if($card['COLOR'] == '+' or $card['COLOR'] == 'C'){
+        query('CALL SET_BOARD(?,?)','ss',array('ACTIVE_COLOR',$card['ACTIVE_COLOR']),'');
     }
-    if($card['NUMBER'] == 11)
-    {
-        query('CALL SET_ROTATION()','',array(),'');
+    if($card['NUMBER'] == 11){
+        query('CALL SET_BOARD(?,?)','ss',array('ROTATION',''),'');
     }
+
     $top_card = query('CALL GET_HAND(?)', 's', array('TOP_CARD'), 'php');
     
-    query('CALL SET_CARD(?,?,?,?)', 'ssii', array('NA',$top_card[0]['COLOR'],
-    $top_card[0]['NUMBER'], $top_card[0]['DECK_NUM']), '');
+    query('CALL SET_CARD(?,?,?,?)', 'ssii', array('NA',$top_card[0]['COLOR'],$top_card[0]['NUMBER'],$top_card[0]['DECK_NUM']) , '');
     
-    query('CALL SET_CARD(?,?,?,?)', 'ssii', array('TOP_CARD',$card['COLOR'],
-    $card['NUMBER'],$card['DECK_NUM']) , '');
+    query('CALL SET_CARD(?,?,?,?)', 'ssii', array('TOP_CARD',$card['COLOR'],$card['NUMBER'],$card['DECK_NUM']) , '');
+    query('CALL UPDATE_USER(?)','s',array($token),'');
     
-    query('CALL UPDATE_USER()','s',array($token),'');
-    query('CALL INVALIDATE_ALL_HANDS()','',array(),'');
+    query('CALL INVALIDATE_ALL(?)','s',array('HANDS'),'');
     $next_player = next_player($card);
     query('CALL SET_PLAYER_ALLOWED(?,?)','ss',array($next_player['USER_TOKEN'],'YES'),'');
     validate_hand($next_player['USER_TOKEN']);  
+    $players = query('CALL GET_PLAYERS(?)','s',array('P'),'php');
+    $num_of_players = count($players);
+    if($num_of_players == 3){
+        query('CALL SET_BOARD(?,?)','ss',array('BOARD_STATE','ENDED'),'');
+        return;
+    }
 }
 
 function next_player($card){
@@ -168,5 +195,22 @@ function validate_hand($token)
         query('CALL SET_CARD_VALID(?,?,?,?,?)', 'ssiis', array($token, $player_hand[$i]['COLOR'],
         $player_hand[$i]['NUMBER'],$player_hand[$i]['DECK_NUM'],$valid), '');
     }
+}
+
+function check_game_state(){
+ $state = query('CALL GET_FROM_BOARD(?)','s',array('BOARD_STATE'),'php');
+    $players = query('CALL GET_PLAYERS(?)','s',array('P'),'php');
+    $num_of_players = count($players);
+    if($num_of_players == 4){
+        setup_board();
+    }else{
+        return json_encode($state);
+    }   
+}
+
+function reset_board(){
+    query('CALL RESET_TURNS()','',array(),''); 
+    query('CALL RESET_HANDS()','',array(),''); 
+    query('CALL RESET_BOARDS()','',array(),'');
 }
 ?>
