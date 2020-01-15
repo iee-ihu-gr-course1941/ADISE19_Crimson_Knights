@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-    
+
 <head>
     <title>Uno</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,9 +10,10 @@
     <link rel="stylesheet" type="text/css" href="css/uno.css">
 </head>
 
-<body>    
+<body>
+    <div id='game_state'>WAITING FOR PLAYERS</div>
     <input id="sign_in" type="text" name="userName" value="">
-    <button onclick="sign_in()">Submit</button>
+    <button id="sign_in_button" >Submit</button>
     <div id="board">
         <div id="draw_pile">
             <img src="images/K.png" alt="draw_pile">
@@ -36,19 +37,18 @@
             <p class="name">Player 3</p>
             <p class="number_of_cards">0</p>
         </div>
-        <button onclick="pass()">Pass</button>
-        <button onclick="update_board()">Update</button>
-        <button onclick="test()">Add</button>
-        <select id='color_select' style="display: none">
+        <button id="pass">Pass</button>
+        <button onclick="update_board()">update</button>
+        <select id="color_select">
             <option value="R">Red</option>
             <option value="G">Green</option>
             <option value="B">Blue</option>
             <option value="P">Purple</option>
         </select>
-        <button id='assign_color'onclick="play_special_card()" style="display: none">Set Color</button>
+        <button id="assign_color">Assign Color</button>
     </div>
     <div id="hand">
     </div>
 </body>
-    
+
 </html>
