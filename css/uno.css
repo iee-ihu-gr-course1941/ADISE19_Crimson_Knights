@@ -5,20 +5,77 @@
 .disabled {
     opacity: 0.5;
 }
+#game_over {
+    text-align: center;
+    font-size: 200px;
+    text-shadow: 5px solid #000000;
+}
 
-.red {}
+#game_state {
+    font-family: sans-serif;
+    font-size: 20px;
+    color: #ffffff;
+    padding-top: 2%;
+    text-align: center;
+    background-color: #2500A8;
+    border-radius: 15px;
+    border: 5px solid #fa001F;
+    margin: auto;
+    width: 20%;
+    height: 100px;
+    display: none;
+}
 
-.special {}
+#sign_up_box > p {
+    padding-top: 10px;
+    margin: auto;
+    text-align: center;
+    font-size: 25px;
+    font-weight: bold;
+}
 
-.green {
+#sign_up_box {
+    text-align: center;
+    width: 50%;
+    margin: auto;
+    margin-top: 5%;
+    background-color: #06001F;
+    border: 10px solid #34ebe8;
+    border-radius: 15px;
+}
+
+#sign_up_box > button {
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+#sign_up_box > input {
+    text-align: center;
+    margin-top: 5%;
+    border: 5px solid #000000;
+    font-size: 30px;
+    width: 80%;
+    height: 45px;
+    background-color: #ffffff;
+}
+
+#color_select {
+    display: none;
+}
+
+#assign_color {
+    display: none;
+}
+
+.G {
     filter: hue-rotate(100deg);
 }
 
-.blue {
+.B {
     filter: hue-rotate(200deg);
 }
 
-.purple {
+.P {
     filter: hue-rotate(300deg);
 }
 
@@ -27,9 +84,7 @@ body {
 }
 
 #hand > img {
-
     width: 10%;
-    height: 10%;
 }
 
 #draw_pile > img {
@@ -43,9 +98,9 @@ body {
 #board {
     position: relative;
     border-radius: 15px;
-    border: 10px solid #34ebe8;
+    border: 5px solid #34ebe8;
     margin: auto;
-    margin-top: 2%;
+    margin-top: 0.5%;
     background-color: #06001F;
     width: 90%;
     height: 650px;
@@ -54,28 +109,27 @@ body {
 #hand {
     position: relative;
     border-radius: 15px;
-    border: 10px solid #34ebe8;
+    border: 5px solid #34ebe8;
     margin: auto;
-    margin-top: -8%;
+    margin-top: -10%;
     background-color: #06001F;
     width: 50%;
-    height: auto;
-    z-index: 1;
 }
 
 #draw_pile {
     position: absolute;
-    margin-top: 15%;
+    margin-top: 12%;
     margin-left: 35%;
 }
 
 #top_card {
     position: absolute;
-    margin-top: 15%;
+    margin-top: 12%;
     margin-left: 55%;
 }
 
 .player_box {
+    text-align: center;
     position: relative;
     border-radius: 15px;
     border: 5px solid #34ebe8;
@@ -91,16 +145,19 @@ p {
 }
 
 .top {
+
     margin: auto;
     margin-top: 1%;
 }
 
 .left {
-    margin-top: 10%;
+
+    margin-top: 5%;
     margin-left: 1%;
 }
 
 .right {
+
     margin-top: -8%;
     margin-left: 79%;
 }
@@ -111,5 +168,9 @@ p {
 }
 
 .enabled {
-    border: 10px solid #00ff00;
+    border: 5px solid #00ff00;
+}
+
+.current_player {
+    border: 5px dotted #ffffad;
 }
