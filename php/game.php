@@ -1,19 +1,25 @@
 <?php     
-function pass()
-{
-    query('CALL INVALIDATE_ALL_HANDS()','',array(),'');
-    $next_player = next_player(null);
+function pass(){
+    query('CALL INVALIDATE_ALL(?)','s',array('HANDS'),'');
+    $next_player = next_player($card);
     query('CALL SET_PLAYER_ALLOWED(?,?)','ss',array($next_player['USER_TOKEN'],'YES'),'');
     validate_hand($next_player['USER_TOKEN']);  
 }
-
-function get_card($token) {
-	$card = query('CALL GET_RANDOM_CARD()', '', array() , 'php');
-	query('CALL SET_CARD(?,?,?,?)', 'ssii', array($token,$card[0]['COLOR'],$card[0]['NUMBER'],
-                                                  $card[0]['DECK_NUM']), '');
-	validate_hand($token);
+function get_random_card(){
+    $card = query('CALL GET_RANDOM_CARD()', '', array() , 'php');
+    return $card;
 }
-
+function get_card($token) {
+	$card = get_random_card();
+	query('CALL SET_CARD(?,?,?,?)', 'ssii', array($token,$card[0]['COLOR'],$card[0]['NUMBER'],$card[0]['DECK_NUM']) , '');
+    validate_hand($token);
+}
+function give_cards($num_of_cards,$token) {
+    for($i = 0;$i < $num_of_cards;$i++){
+        $card = get_random_card();
+	   query('CALL SET_CARD(?,?,?,?)', 'ssii', array($token,$card[0]['COLOR'],$card[0]['NUMBER'],$card[0]['DECK_NUM']) , '');
+    }
+}
 function set_board(){
     query('CALL RESET_HANDS()','',array(),'php');
 	get_card('TOP_CARD');
@@ -54,7 +60,7 @@ function play_card($token,$card)
 }
 
 function next_player($card){
-    $rotation = query('CALL GET_ROTATION()', '', array(), 'php');
+    $rotation = query('CALL GET_FROM_BOARD(?)', 's', array('ROTATION'), 'php');
     $players = query('CALL GET_PLAYERS(?)','s',array($rotation[0]['ROTATION']),'php');
     $last_player = end($players);
     $flag_second_to_last = false;
@@ -98,43 +104,31 @@ function next_player($card){
     }else if($card['NUMBER'] == 10){
        if($flag_last){
             reset($players);
-            get_card(current($players)['USER_TOKEN']);
-            get_card(current($players)['USER_TOKEN']);
+            give_cards(2,current($players)['USER_TOKEN']);
             return next($players);
         }else if($flag_second_to_last){
            $next_player = next($players);
-           get_card($next_player['USER_TOKEN']);
-           get_card($next_player['USER_TOKEN']);
+            give_cards(2,$next_player['USER_TOKEN']);
            reset($players);
            return current($players);
        }else{
            $next_player = next($players);
-           get_card($next_player['USER_TOKEN']);
-           get_card($next_player['USER_TOKEN']);
+           give_cards(2,$next_player['USER_TOKEN']);
            return next($players);
        } 
     }else if($card['COLOR'] == '+'){
         if($flag_last){
             reset($players);
-            get_card(current($players)['USER_TOKEN']);
-            get_card(current($players)['USER_TOKEN']);
-            get_card(current($players)['USER_TOKEN']);
-            get_card(current($players)['USER_TOKEN']);
+            give_cards(4,current($players)['USER_TOKEN']);
             return next($players);
         }else if($flag_second_to_last){
            $next_player = next($players);
-           get_card($next_player['USER_TOKEN']);
-           get_card($next_player['USER_TOKEN']);
-           get_card($next_player['USER_TOKEN']);
-           get_card($next_player['USER_TOKEN']);
+           give_cards(4,$next_player['USER_TOKEN']);
            reset($players);
            return current($players);
        }else{
            $next_player = next($players);
-           get_card($next_player['USER_TOKEN']);
-           get_card($next_player['USER_TOKEN']);
-           get_card($next_player['USER_TOKEN']);
-           get_card($next_player['USER_TOKEN']);
+           give_cards(4,$next_player['USER_TOKEN']);
            return next($players);
        } 
     }else{
@@ -150,38 +144,25 @@ function validate_hand($token)
     $valid = 'NO';
     $top_card = query('CALL GET_HAND(?)', 's', array('TOP_CARD'), 'php');
     $player_hand = query('CALL GET_HAND(?)', 's', array($token), 'php');
-    $active_color = query('CALL GET_ACTIVE_COLOR()','',array(),'');
+    $active_color = query('CALL GET_FROM_BOARD(?)','s',array('ACTIVE_COLOR'),'php');
     $num_of_cards = count($player_hand);
     
     for ($i = 0;$i < $num_of_cards;$i++)
     {
-        if($top_card[0]['COLOR'] != '+' and $top_card[0]['COLOR'] != 'C')
-        {
-            if($top_card[0]['COLOR'] == $player_hand[$i]['COLOR'])
-            {
+        if($top_card[0]['COLOR'] != '+' and $top_card[0]['COLOR'] != 'C'){
+            if($top_card[0]['COLOR'] == $player_hand[$i]['COLOR']){
                 $valid = 'YES';
-            }
-            else if($top_card[0]['NUMBER'] == $player_hand[$i]['NUMBER'])
-            {
+            }else if($top_card[0]['NUMBER'] == $player_hand[$i]['NUMBER']){
                 $valid = 'YES';
-            }
-            else if($player_hand[$i]['COLOR'] == '+' or $player_hand[$i]['COLOR'] == 'C')
-            {
+            }else if($player_hand[$i]['COLOR'] == '+' or $player_hand[$i]['COLOR'] == 'C'){
                 $valid = 'YES';
-            }
-            else $valid = 'NO';
-        }
-        else
-        {
-            if($active_color[0]['ACTIVE_COLOR'] == $player_hand[$i]['COLOR'])
-            {
+            }else $valid = 'NO';
+        }else{
+            if($active_color[0]['ACTIVE_COLOR'] == $player_hand[$i]['COLOR']){
                 $valid = 'YES';
-            }
-            else if($player_hand[$i]['COLOR'] == '+' or $player_hand[$i]['COLOR'] == 'C')
-            {
+            }else if($player_hand[$i]['COLOR'] == '+' or $player_hand[$i]['COLOR'] == 'C'){
                 $valid = 'NO';
-            }
-            else $valid = 'NO';
+            }else $valid = 'NO';
         }
            
         query('CALL SET_CARD_VALID(?,?,?,?,?)', 'ssiis', array($token, $player_hand[$i]['COLOR'],
