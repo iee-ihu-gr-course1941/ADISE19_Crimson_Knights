@@ -1,0 +1,131 @@
+body {
+    background-color: #0C0C0D;
+    color: #ffffff;
+    font-family: 'Montserrat';
+    margin: 0.1px;
+}
+
+h1 {
+    font-size: 55px;
+    font-weight: bold;
+    margin: 5px;
+    text-shadow: 0 0 5px #ffffff;
+}
+
+h3 {
+    text-shadow: 0 0 3px #ffffff;
+}
+
+p {
+    font-size: 20px;
+    font-weight: bold;
+    margin: 35px;
+    text-align: center;
+    text-shadow: 0 0 5px #ffffff;
+}
+.background {
+    bottom: 0;
+    position: fixed;
+    width: 100%;
+    z-index: -1
+}
+
+.sign_up_box {
+    animation-duration: 1.5s;
+    animation-name: sign_up;
+    animation-timing-function: ease-out;
+    background-color: #2f343f;
+    border-radius: 10px;
+    box-shadow: 0 0 3px #ffffff;
+    margin: auto;
+    position: relative;
+    text-align: center;
+    top: -5%;
+    transition: box-shadow 1s, background-color 1s;
+    z-index: 1;
+}
+
+.sign_up_box:hover {
+    background-color: #3b3e44;
+    box-shadow: 0 0 20px #ffffff;
+}
+
+@keyframes sign_up {
+    from {
+        top: -100%
+    }
+
+    to {
+        top: -5%
+    }
+}
+
+.sign_up_box > input {
+    font-size: 15px;
+    margin-bottom: 5%;
+    text-align: center;
+    width: 50%;
+}
+
+button {
+    background-color: #18181A;
+    border: none;
+    border-radius: 5px;
+    color: #ffffff;
+    font-size: 15px;
+    padding: 10px 30px;
+    text-shadow: 0 0 5px #ffffff;
+    transition: background-color 0.5s, text-shadow 0.5s;
+}
+
+button:hover {
+    background-color: #4e4e51;
+    text-shadow: 0 0 15px #ffffff;
+}
+
+button:active {
+    background-color: #000000;
+}
+
+.flex {
+    align-items: center;
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: space-between;
+    width: 40%;
+}
+
+.flex_row {
+    align-items: center;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-around;
+}
+
+footer {
+    background-color: #232327;
+    bottom: 0;
+    box-shadow: 0 0 15px #ffffff;
+    position: fixed;
+    width: 100%;
+}
+
+header {
+    background-color: #232327;
+    box-shadow: 0 0 15px #ffffff;
+    position: relative;
+}
+
+header > img {
+    height: 70px;
+}
+
+a:link,
+a:visited {
+    color: #ffffff;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #0a84ff;
+}
