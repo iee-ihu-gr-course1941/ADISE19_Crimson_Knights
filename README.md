@@ -11,7 +11,7 @@ Table of Contents
       * [Methods](#methods)
          * [Βoard](#board)
             * [Αρχικοποίηση Board](#αρχικοποίηση-board)
-            * [Μηδενισμός & αρχικοποίηση πινάκων](#μηδενισμός-και-αρχικοποίηση-πινάκων)
+            * [Μηδενισμός και αρχικοποίηση πινάκων](#μηδενισμός-και-αρχικοποίηση-πινάκων)
             * [Εμφάνιση κατάστασης Board](#εμφάνιση-κατάστασης-board)
             * [Ενεργοποίηση παιχνιδιού](#ενεργοποίηση-παιχνιδιού) 
          * [Card](#card)
@@ -122,8 +122,7 @@ Table of Contents
 
 Η βάση μας κρατάει τους εξής πίνακες και στοιχεία:
 
-* BOARDS (`BOARD_ID`, `LAST_CHANGE`, `ACTIVE_COLOR`, `CURRENT_PLAYERS`, 
-         `MAX_PLAYERS`, `ACTIVE_PLAYER_TOKEN`, `BOARD_STATE`, `ROTATION`)
+* BOARDS (`BOARD_ID`, `LAST_CHANGE`, `ACTIVE_COLOR`, `CURRENT_PLAYERS`, `MAX_PLAYERS`, `ACTIVE_PLAYER_TOKEN`, `BOARD_STATE`, `ROTATION`)
 * DECK (`COLOR`, `NUMBER`, `DECK_NUM`)
 * HANDS (`BOARD_ID`, `USER_TOKEN`, `COLOR`, `NUMBER`, `DECK_NUM`, `VALID`)
 * TURNS (`BOARD_ID`, `USER_TOKEN`, `ALLOWED`, `TURN_NUMBER`)
