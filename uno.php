@@ -53,9 +53,11 @@ else if ($method == 'POST') {
 			play_card($input['token'], $input['card']);
 		break;
 		case 'sign_up':
+			htmlspecialchars($input['userName']);
 			query('CALL SIGN_UP(?)', 's', array($input['userName']), '');
 		break;
 		case 'sign_in':
+			htmlspecialchars($input['userName']);
 			query('CALL SIGN_IN(?)', 's', array($input['userName']), 'json');
 		break;
 	}
