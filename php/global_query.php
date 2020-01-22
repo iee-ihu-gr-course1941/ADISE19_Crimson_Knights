@@ -1,4 +1,8 @@
 <?php
+/**
+* Function list:
+* - query()
+*/
 function query($query, $bind_list, $param_array, $data_type) {
 	global $mysqli;
 	$query = $mysqli->real_escape_string($query);
@@ -27,12 +31,15 @@ function query($query, $bind_list, $param_array, $data_type) {
 		$result = $statement->get_result();
 		$statement->close();
 		if (!is_object($result)) {
-            print json_encode(['notice' => 'Not an object'], JSON_PRETTY_PRINT);
+			//            header('Content-type: application/json');
+			//            print json_encode(['notice' => 'Not an object'], JSON_PRETTY_PRINT);
+			//			return;
 			return;
 		}
 		if ($result->num_rows == 0) {
+			header('Content-type: application/json');
 			print json_encode(['warning_mysqli' => 'Empty result-set'], JSON_PRETTY_PRINT);
-            return;
+			return;
 		}
 		if ($data_type == 'json') {
 			header('Content-type: application/json');
