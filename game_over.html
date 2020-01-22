@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Game Over</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
+    <script src="js/uno.js"></script>
+    <link id='css' rel="stylesheet" type="text/css" href="css/game_over.css">
+    <link rel="icon" type="image/x-icon" href="./images/Uno_Logo.png">
+
+</head>
+
+<body>
+    <h1>Game Over</h1>
+    <img src="./images/skull.png" alt="skull" title="You didn't actualy die">
+    <p>Don't feel sad<br>You can go <a href="https://users.iee.ihu.gr/~it174973/sign_up.html"><i>back</i></a> and play again !</p>
+</body>
+
+<script>
+    ajax_request('https://users.iee.ihu.gr/~it174973/uno.php/reset_board', 'GET', '');
+</script>
+
+</html>

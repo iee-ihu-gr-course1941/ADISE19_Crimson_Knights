@@ -2,12 +2,14 @@
 <html lang="en">
 
 <head>
-    <title>Uno Sign Up</title>
+    <title>Welcome</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="utf-8">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
     <script src="js/uno.js"></script>
-    <link rel="stylesheet" type="text/css" href="css/uno.css">
+    <link rel="stylesheet" type="text/css" href="css/sign_up.css">
+    <link rel="icon" type="image/x-icon" href="./images/Uno_Logo.png">
 
     <script>
 
@@ -17,13 +19,24 @@
 
 
 <body>
-    <div id='sign_up_box'>
-        <p>Create an account to play the game</p>
-        <p>Enter a username in the field bellow and click on Sign Up</p>
+    <header><img src="./images/logo.png" alt="Uno_Logo"></header>
+    <div class="background">
+        <img src="./images/background.png" alt="background">
+    </div>
+    <div class='sign_up_box flex'>
+        <h1>Sign up</h1>
+        <h3>Fill in the field bellow and press <br>Sign up to create an acount</h3>
+        <p>Enter your username :</p>
         <input id="sign_up" type="text" name="userName" value=""><br>
         <button onclick="sign_up()">Sign Up</button>
+        <h3>If you already have an account you can <br>
+            <a href="https://users.iee.ihu.gr/~it174973/uno.html">Sign in</a></h3>
     </div>
-
+    <footer class="flex_row"><a href="https://github.com/iee-ihu-gr-course1941/ADISE19_Crimson_Knights">
+            <img id="git_logo" src="./images/github_logo_light.png" alt="Github Link">
+        </a>
+        <p>Copyleft 2020 &#169;</p>
+    </footer>
 </body>
 
 

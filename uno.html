@@ -2,24 +2,37 @@
 <html lang="en">
 
 <head>
-    <title>Uno</title>
+    <title>Waiting for Players</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="utf-8">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
     <script src="js/uno.js"></script>
     <link rel="stylesheet" type="text/css" href="css/uno.css">
+    <link rel="icon" type="image/x-icon" href="./images/Uno_Logo.png">
 </head>
 
 <body>
-    <div id='game_state'>WAITING FOR PLAYERS</div>
-    <input id="sign_in" type="text" name="userName" value="">
-    <button id="sign_in_button" >Submit</button>
+    <div id='game_state'><h1>Waiting for players</h1></div>
+    <div class="sign_in_box flex">
+        <h1>Sign in</h1>
+        <p>You have to re-enter your username <br>because of some design limitations<br>Planning on fixing it though</p>
+        <p>Enter your username :</p>
+        <input id="sign_in" type="text" name="userName" value="">
+        <p></p>
+        <button id="sign_in_button">Sign In</button>
+        <p>Note: only 4 people can play at a time so if the game<br>
+        is in progress you have to wait for it to finish<br>
+        Sorry for the inconvenience</p>
+        <p id="game_state_info"></p>
+    </div>
+    
     <div id="board">
         <div id="draw_pile">
-            <img src="images/K.png" alt="draw_pile">
+            <img src="./images/K.png" alt="draw_pile">
         </div>
         <div id="top_card">
-            <img src="images/E.png" alt="top_card">
+            <img src="./images/E.png" alt="top_card">
         </div>
         <div class="player_box top">
             <p class="name">Player 1</p>
@@ -38,7 +51,6 @@
             <p class="number_of_cards">0</p>
         </div>
         <button id="pass">Pass</button>
-        <button onclick="update_board()">update</button>
         <select id="color_select">
             <option value="R">Red</option>
             <option value="G">Green</option>
