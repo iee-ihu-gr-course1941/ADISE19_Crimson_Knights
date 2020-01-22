@@ -10,6 +10,7 @@ function query($query, $bind_list, $param_array, $data_type) {
 	$statement = $mysqli->prepare($query);
 	switch ($bind_list) {
 		case 's':
+			$param_array[0] = $mysqli->real_escape_string($param_array[0]);
 			$statement->bind_param($bind_list, $param_array[0]);
 		break;
 		case 'si':
